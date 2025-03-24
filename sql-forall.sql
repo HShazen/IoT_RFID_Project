@@ -4,7 +4,7 @@ CREATE TABLE admin (
     last_name VARCHAR(255) NOT NULL,
     birth_date DATE,
     email VARCHAR(255) NOT NULL,
-    role ENUM("super", "normal", "blocked")
+    role ENUM("super", "normal", "blocked"),
     password VARCHAR(255) NOT NULL
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE user (
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     birth_date DATE,
-    rfid_code VARCHAR(20) NOT NULL,
+    rfid_code VARCHAR(20) NOT NULL UNIQUE,
     access_level INT DEFAULT 0,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

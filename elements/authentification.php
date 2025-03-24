@@ -30,6 +30,7 @@
                 </div>
             </div>
         </main>
+        
     </div>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/elements/foot.php';?>
 </div>
