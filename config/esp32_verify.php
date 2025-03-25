@@ -28,10 +28,7 @@ if (isset($_GET['uid'])) {
                     $stmt->bind_param("is", $id_user, $status);
 
                     if ($stmt->execute()) {
-                        echo "<script>
-                                alert('✅ Log added successfully.');
-                                window.location.href = '/index.php';
-                            </script>";
+                        echo "✅ Access Granted";
                     } else {
                         echo "<script>
                                 alert('❌ Error: " . $stmt->error . "');
@@ -42,10 +39,7 @@ if (isset($_GET['uid'])) {
                 }
             }
         } else {
-            echo "<script>
-                    alert('❌ Access Denied.');
-                    window.history.back();
-                </script>";
+            echo "❌ Access Denied";
         }
     }
 }
