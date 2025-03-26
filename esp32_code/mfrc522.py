@@ -307,3 +307,4 @@ class MFRC522:
                 stat = self.ERR
 
         return stat
+
