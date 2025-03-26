@@ -1,6 +1,7 @@
 import network
 import urequests
 import time
+import led_buzzer as ld
 
 # Function to connect to the wifi get ssid with password
 def connect_wifi(SSID, PASSWORD):        
@@ -20,6 +21,7 @@ def connect_wifi(SSID, PASSWORD):
             break
 
     print("Connected! IP:", wifi.ifconfig()[0])
+    ld.connection_succ()
 
 # Used to test the connection
 #connect_wifi("IdoomFibre_SDO","m4KKB3mc")
@@ -41,3 +43,4 @@ def send_rfid(url, uid):
 #while True:
 #    send_rfid(url, rfid_uid)  # Send the UID to server
 #    time.sleep(2)  # 2-second delay to prevent overloading the server
+
