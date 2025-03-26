@@ -7,7 +7,7 @@ import _thread
 import uid_sender as send
 import rfid_reader as rf
 import led_buzzer as lb
-#import servo_door
+import servo_door as sd
 
 # We send a connection request (40 times before it trigger an error)
 send.connect_wifi("IdoomFibre_SDO","m4KKB3mc")
@@ -44,6 +44,8 @@ while True:
     elif ("Access" in response):
         attempt = 1
         _thread.start_new_thread(lb.granted, ())
+        sd.full_turn()
             
     # Delay to avoid brutforce
     time.sleep(1)
+ 
