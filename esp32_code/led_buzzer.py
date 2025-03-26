@@ -1,7 +1,9 @@
 from machine import Pin, PWM
 import utime
 
-BUZZER_PIN = 25
+BUZZER_PIN = 27
+RED_LED_PIN = 32
+GREEN_LED_PIN = 25
 
 def play_tone(frequency, duration, duty=6000):
     """Plays a tone at a given frequency and duration."""
@@ -12,7 +14,7 @@ def play_tone(frequency, duration, duty=6000):
     buzzer.duty_u16(0)  # Stop sound
     utime.sleep_ms(50)  # Small gap between beeps
 
-def denied(pin_number=12):
+def denied(pin_number=RED_LED_PIN):
     """Flashes red LED and plays a deeper 'buzz buzz' for denied access."""
     red = Pin(pin_number, Pin.OUT)
     red.value(1)  # Turn on red LED
@@ -27,7 +29,7 @@ def denied(pin_number=12):
     red.value(0)  # Turn off red LED
     print("Denied sequence duration:", utime.ticks_diff(utime.ticks_ms(), start_time), "ms")
 
-def granted(pin_number=27):
+def granted(pin_number=GREEN_LED_PIN):
     """Flashes green LED and plays a 'click-clack' unlocking sound."""
     green = Pin(pin_number, Pin.OUT)
     green.value(1)  # Turn on green LED
@@ -42,6 +44,34 @@ def granted(pin_number=27):
     green.value(0)  # Turn off green LED
     print("Granted sequence duration:", utime.ticks_diff(utime.ticks_ms(), start_time), "ms")
 
+def connection_succ():
+    """Turns both LEDs on and plays a success buzzer sound with a short double beep."""
+    red = Pin(RED_LED_PIN, Pin.OUT)
+    green = Pin(GREEN_LED_PIN, Pin.OUT)
+    
+    # First beep with green LED
+    green.value(1)
+    play_tone(500, 120, 12000)
+    green.value(0)  # Turn off before switching LED
+    utime.sleep_ms(50)
+
+    # Second beep with red LED
+    red.value(1)
+    play_tone(700, 150, 12000)
+    red.value(0)
+    utime.sleep_ms(50)
+
+    # Third beep with red LED again
+    green.value(1)
+    play_tone(2000, 150, 12000)
+    green.value(0)
+    utime.sleep_ms(50)
+
+    utime.sleep_ms(500)  # Keep LEDs on for half a second
+
+    # Turn LEDs off
+    red.value(0)
+    green.value(0)
 
 """
 Old buzzer code
@@ -87,3 +117,5 @@ def granted(pin_number=27):
     green.value(0)  # Turn off green LED
     print("Granted sequence duration:", utime.ticks_diff(utime.ticks_ms(), start_time), "ms")
 """
+
+
