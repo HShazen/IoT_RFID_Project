@@ -28,5 +28,6 @@ def read_tag():
             (stat, raw_uid) = rdr.anticoll()
             if stat == rdr.OK:
                 card_id = "0x%02x%02x%02x%02x" % (raw_uid[0], raw_uid[1], raw_uid[2], raw_uid[3])
-                print( card_id)
+                #print(card_id)
                 return card_id
+
