@@ -24,7 +24,7 @@ if (isset($_GET['uid'])) {
                 $log = "INSERT INTO access_logs (user_id_log, used_rfid_code, status) VALUES (?, ?, ?)";
                 if ($stmt = $con->prepare($log)) {
                     $id_user = $user['id_user'];
-                    $status = "Access Granted"; // Define status separately
+                    $status = "Granted"; // Define status separately
                     $stmt->bind_param("iss", $id_user, $uid, $status);
 
                     if ($stmt->execute()) {
@@ -41,7 +41,7 @@ if (isset($_GET['uid'])) {
         } else {
             $log = "INSERT INTO access_logs (user_id_log, used_rfid_code, status) VALUES (?, ?, ?)";
             if ($stmt = $con->prepare($log)) {
-                $status = "Access Denied"; // Define status separately
+                $status = "Denied"; // Define status separately
                 $id_user = 4;
                 $stmt->bind_param("iss", $id_user, $uid, $status);
 
