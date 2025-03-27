@@ -20,12 +20,12 @@ if (isset($_GET['uid'])) {
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc(); // Fetch user data from the database
             if ($user['access_level'] == 0) { // Now, check access level after fetching
-                $id_user = $user['id_user'];
                 // Insert log
-                $log = "INSERT INTO access_logs (user_id_log, status) VALUES (?, ?)";
+                $log = "INSERT INTO access_logs (user_id_log, used_rfid_code, status) VALUES (?, ?, ?)";
                 if ($stmt = $con->prepare($log)) {
+                    $id_user = $user['id_user'];
                     $status = "Access Granted"; // Define status separately
-                    $stmt->bind_param("is", $id_user, $status);
+                    $stmt->bind_param("iss", $id_user, $uid, $status);
 
                     if ($stmt->execute()) {
                         echo "✅ Access Granted";
@@ -39,7 +39,22 @@ if (isset($_GET['uid'])) {
                 }
             }
         } else {
-            echo "❌ Access Denied";
+            $log = "INSERT INTO access_logs (user_id_log, used_rfid_code, status) VALUES (?, ?, ?)";
+            if ($stmt = $con->prepare($log)) {
+                $status = "Access Denied"; // Define status separately
+                $id_user = 4;
+                $stmt->bind_param("iss", $id_user, $uid, $status);
+
+                if ($stmt->execute()) {
+                    echo "❌ Access Denied";
+                } else {
+                    echo "<script>
+                            alert('❌ Error: " . $stmt->error . "');
+                            window.history.back();
+                        </script>";
+                }
+                $stmt->close();
+            }
         }
     }
 }

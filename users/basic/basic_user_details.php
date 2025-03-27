@@ -112,6 +112,7 @@
                                 <th onclick="sortTable('log_number')">Log Number ⬍</th>
                                 <th onclick="sortTable('user_id_log')">User ID ⬍</th>
                                 <th onclick="sortTable('log_date')">Log Date ⬍</th>
+                                <th>UID</th>
                                 <th onclick="sortTable('status')">Status ⬍</th>
                             </tr>
                         </thead>
@@ -135,32 +136,33 @@
 <script>
     // Pass the logs data to JavaScript
     const logsData = <?= json_encode($logs); ?>;
-        let currentPage = 1;
-        let pageSize = 5;
-        let sortDirection = {}; // Initialize sorting direction
+    let currentPage = 1;
+    let pageSize = 5;
+    let sortDirection = {}; // Initialize sorting direction
 
-        // Function to display logs data in the table
-        function displayPage() {
-            const tableBody = document.querySelector("#logsTable tbody");
-            tableBody.innerHTML = ""; // Clear previous data
+    // Function to display logs data in the table
+    function displayPage() {
+        const tableBody = document.querySelector("#logsTable tbody");
+        tableBody.innerHTML = ""; // Clear previous data
 
-            let start = (currentPage - 1) * pageSize;
-            let end = start + pageSize;
-            let paginatedLogs = logsData.slice(start, end);
+        let start = (currentPage - 1) * pageSize;
+        let end = start + pageSize;
+        let paginatedLogs = logsData.slice(start, end);
 
-            paginatedLogs.forEach(log => {
-                // ✅ Set label color based on status
-                let statusColor = log.status === "Access Granted" ? "#009900" : "#cc0000";
-                tableBody.innerHTML += `<tr>
-                    <td>${log.log_number}</td>
-                    <td>${log.user_id_log}</td>
-                    <td>${log.log_date}</td>
-                    <td><span style="background-color: ${statusColor}; color: white; padding: 3px 8px; border-radius: 5px;">${log.status}</span></td>
-                </tr>`;
-            });
+        paginatedLogs.forEach(log => {
+            // ✅ Set label color based on status
+            let statusColor = log.status === "Access Granted" ? "#009900" : "#cc0000";
+            tableBody.innerHTML += `<tr>
+                <td>${log.log_number}</td>
+                <td>${log.user_id_log}</td>
+                <td>${log.log_date}</td>
+                <td>${log.used_rfid_code}</td>
+                <td><span style="background-color: ${statusColor}; color: white; padding: 3px 8px; border-radius: 5px;">${log.status}</span></td>
+            </tr>`;
+        });
 
-            updatePagination();
-        }
+        updatePagination();
+    }
 
         // Display the first page
         displayPage();
@@ -274,10 +276,61 @@ function sortTable(column) {
 
     displayPage();
 }
-
+/*
 // Function to Sort Table (Smallest to Largest & Recent to Oldest)
 function selectSortTable(column) {
     // Ensure logsData is not empty before sorting
+    if (!logsData || logsData.length === 0) {
+        console.warn("No data available to sort.");
+        return;
+    }
+
+    logsData.sort((a, b) => {
+        let valA = a[column];
+        let valB = b[column];
+
+        // Handle numbers (ascending order)
+        if (!isNaN(valA) && !isNaN(valB)) {
+            return Number(valA) - Number(valB);
+        } 
+        // Handle dates (most recent to oldest)
+        else if (Date.parse(valA) && Date.parse(valB)) {
+            return new Date(valB) - new Date(valA); // Reverse order for recent first
+        } 
+        // Handle strings (alphabetically)
+        else {
+            return valA.toString().localeCompare(valB.toString());
+        }
+    });
+
+    displayPage(); // Refresh table with sorted data
+}
+/*
+// Function to handle sorting via dropdown
+function changeSorting() {
+    let sortSelect = document.getElementById("sortSelect");
+    let selectedSort = sortSelect.value; // Get selected column
+
+    // Save sorting choice
+    localStorage.setItem("currentSortColumn", selectedSort);
+
+    selectSortTable(selectedSort);
+}
+
+// Wait for the window to load completely
+window.onload = () => {
+    setTimeout(() => {
+        if (logsData && logsData.length > 0) {
+            selectSortTable('log_date');  // Automatically sort by 'log_date' (Recent first)
+        } else {
+            console.warn("Logs data is not loaded yet.");
+        }
+    }, 100); // Delay ensures logsData is available
+};
+*/
+
+// Function to Sort Table (Smallest to Largest & Recent to Oldest)
+function selectSortTable(column) {
     if (!logsData || logsData.length === 0) {
         console.warn("No data available to sort.");
         return;
@@ -315,11 +368,24 @@ function changeSorting() {
     selectSortTable(selectedSort);
 }
 
+// Function to load sorting preference on page load
+function loadSortPreference() {
+    let savedSortColumn = localStorage.getItem("currentSortColumn");
+    let defaultSort = "log_date"; // Default sorting column
+
+    if (savedSortColumn) {
+        selectSortTable(savedSortColumn);
+        document.getElementById("sortSelect").value = savedSortColumn; // Update dropdown
+    } else {
+        selectSortTable(defaultSort); // Use default if no preference is saved
+    }
+}
+
 // Wait for the window to load completely
 window.onload = () => {
     setTimeout(() => {
         if (logsData && logsData.length > 0) {
-            selectSortTable('log_date');  // Automatically sort by 'log_date' (Recent first)
+            loadSortPreference(); // Load saved sorting preference
         } else {
             console.warn("Logs data is not loaded yet.");
         }

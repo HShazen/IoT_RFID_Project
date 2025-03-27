@@ -65,12 +65,13 @@
                     <table class="table table-striped table-hover" id="logsTable" >
                         <thead class="table-dark">
                             <tr>
-                                <th onclick="sortTable('log_number')">Log Number ⬍</th>
-                                <th onclick="sortTable('user_id_log')">User ID ⬍</th>
-                                <th onclick="sortTable('first_name')">First Name ⬍</th>
-                                <th onclick="sortTable('last_name')">Last Name ⬍</th>
-                                <th onclick="sortTable('log_date')">Log Date ⬍</th>
-                                <th onclick="sortTable('status')">Status ⬍</th>
+                                <th onclick="selectSortTable('log_number')">Log Number</th>
+                                <th onclick="selectSortTable('user_id_log')">User ID</th>
+                                <th onclick="selectSortTable('first_name')">First Name</th>
+                                <th onclick="selectSortTable('last_name')">Last Name</th>
+                                <th onclick="selectSortTable('log_date')">Log Date</th>
+                                <th> Used UID </th>
+                                <th onclick="selectSortTable('status')">Status</th>
                             </tr>
                         </thead>
                         <tbody> <!-- Table will be dynamically populated --> </tbody>
@@ -126,6 +127,7 @@ function displayPage() {
             <td>${log.first_name}</td>
             <td>${log.last_name}</td>
             <td>${log.log_date}</td>
+            <td>${log.used_rfid_code}</td>
             <td><span style="background-color: ${statusColor}; color: white; padding: 3px 8px; border-radius: 5px;">${log.status}</span></td>
         </tr>`;
     });
@@ -204,7 +206,7 @@ function sortTable(column) {
     displayPage(); // Refresh table with sorted data
 }
 
-
+/*
 // Function to Sort Table (Smallest to Largest & Recent to Oldest)
 function selectSortTable(column) {
     // Ensure logsData is not empty before sorting
@@ -245,7 +247,46 @@ function changeSorting() {
     selectSortTable(selectedSort);
 }
 
+*/ 
+// Function to Sort Table (Smallest to Largest & Recent to Oldest)
+function selectSortTable(column) {
+    if (!logsData || logsData.length === 0) {
+        console.warn("No data available to sort.");
+        return;
+    }
 
+    logsData.sort((a, b) => {
+        let valA = a[column];
+        let valB = b[column];
+
+        // Handle numbers (ascending order)
+        if (!isNaN(valA) && !isNaN(valB)) {
+            return Number(valA) - Number(valB);
+        } 
+        // Handle dates (most recent to oldest)
+        else if (Date.parse(valA) && Date.parse(valB)) {
+            return new Date(valB) - new Date(valA); // Reverse order for recent first
+        } 
+        // Handle strings (alphabetically)
+        else {
+            return valA.toString().localeCompare(valB.toString());
+        }
+    });
+
+    displayPage(); // Refresh table with sorted data
+}
+
+// Function to handle sorting via dropdown
+function changeSorting() {
+    let sortSelect = document.getElementById("sortSelect");
+    let selectedSort = sortSelect.value; // Get selected column
+
+    // Save sorting choice
+    localStorage.setItem("currentSortColumn", selectedSort);
+
+    selectSortTable(selectedSort);
+}
+/*
 // Wait for the window to load completely
 window.onload = () => {
     setTimeout(() => {
@@ -256,7 +297,31 @@ window.onload = () => {
         }
     }, 100); // Delay ensures logsData is available
 };
+*/
 
+// Function to load sorting preference on page load
+function loadSortPreference() {
+    let savedSortColumn = localStorage.getItem("currentSortColumn");
+    let defaultSort = "log_date"; // Default sorting column
+
+    if (savedSortColumn) {
+        selectSortTable(savedSortColumn);
+        document.getElementById("sortSelect").value = savedSortColumn; // Update dropdown
+    } else {
+        selectSortTable(defaultSort); // Use default if no preference is saved
+    }
+}
+
+// Wait for the window to load completely
+window.onload = () => {
+    setTimeout(() => {
+        if (logsData && logsData.length > 0) {
+            loadSortPreference(); // Load saved sorting preference
+        } else {
+            console.warn("Logs data is not loaded yet.");
+        }
+    }, 100); // Delay ensures logsData is available
+};
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch('/users/get/get_logs_line.php')
@@ -294,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error fetching logs:", error));
 });
 
-
+/*
 function fetchLogsData() {
     fetch('/users/get/get_all_logs.php')
         .then(response => response.json())
@@ -307,8 +372,25 @@ function fetchLogsData() {
             displayPage(); // Refresh table
         })
         .catch(error => console.error("Error fetching logs:", error));
+    
+    selectSortTable('log_date');
 }
+*/
+function fetchLogsData() {
+    fetch('/users/get/get_all_logs.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error("Error:", data.error);
+                return;
+            }
+            logsData = data;
+            displayPage(); // Refresh table
 
+            loadSortPreference(); // Apply saved sorting preference after fetching data
+        })
+        .catch(error => console.error("Error fetching logs:", error));
+}
 // Auto-refresh every 30 seconds
 setInterval(fetchLogsData, 30000);
 </script>

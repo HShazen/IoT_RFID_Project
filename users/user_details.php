@@ -34,11 +34,14 @@ $sql_logs = "SELECT
             access_logs.user_id_log, 
             access_logs.log_date, 
             access_logs.status, 
+            access_logs.used_rfid_code, -- ✅ Added used_rfid_code
+
             user.first_name,
             user.last_name      
         FROM access_logs
         JOIN user ON user.id_user = access_logs.user_id_log
-        WHERE access_logs.user_id_log = ?";  // 🔥 Filter by user ID";
+        WHERE access_logs.user_id_log = ?";  // 🔥 Filter by user ID
+
 $stmt_logs = $con->prepare($sql_logs);
 $stmt_logs->bind_param("i", $id_user);
 $stmt_logs->execute();

@@ -24,6 +24,7 @@ $sql = "SELECT
             access_logs.user_id_log, 
             access_logs.log_date, 
             access_logs.status, 
+            access_logs.used_rfid_code,
             user.first_name,
             user.last_name      
         FROM access_logs
