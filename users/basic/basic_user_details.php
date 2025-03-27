@@ -112,7 +112,7 @@
                                 <th onclick="sortTable('log_number')">Log Number ⬍</th>
                                 <th onclick="sortTable('user_id_log')">User ID ⬍</th>
                                 <th onclick="sortTable('log_date')">Log Date ⬍</th>
-                                <th>UID</th>
+                                <th>Used UID</th>
                                 <th onclick="sortTable('status')">Status ⬍</th>
                             </tr>
                         </thead>
@@ -151,7 +151,8 @@
 
         paginatedLogs.forEach(log => {
             // ✅ Set label color based on status
-            let statusColor = log.status === "Access Granted" ? "#009900" : "#cc0000";
+            let statusColor = log.status === "Granted" ? "#006600" : "#8B0000";
+
             tableBody.innerHTML += `<tr>
                 <td>${log.log_number}</td>
                 <td>${log.user_id_log}</td>

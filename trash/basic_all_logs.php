@@ -97,7 +97,7 @@
     let currentPage = 1;
     let pageSize = 10;
     let sortDirection = {}; // Initialize sorting direction
-    let filteredLogsData = [];
+
     // Fetch logs Data
     fetch('/users/get/get_all_logs.php')
         .then(response => response.json())
@@ -110,56 +110,59 @@
             displayPage();
         })
         .catch(error => console.error("Error fetching logs:", error));
-
+        
     function filterTable() {
-        let input = document.getElementById("searchInput");
-        if (!input) {
-            console.error("Input element is missing");
-            return;
-        }
+        let searchValue = document.getElementById("searchInputLogs").value.toLowerCase();
+        console.log("Filtering logs with:", searchValue); // ✅ Debugging log
 
-        let filter = input.value ? input.value.toLowerCase() : "";
-        let rows = document.querySelectorAll("table tbody tr");
+        currentPage = 1; // ✅ Reset page when filtering
 
-        rows.forEach(row => {
-            let text = row.textContent || row.innerText;
-            if (text.toLowerCase().includes(filter)) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
-        });
+        let filteredLogs = searchValue
+            ? logsData.filter(log =>
+                log.log_number.toString().includes(searchValue) ||
+                log.user_id_log.toString().includes(searchValue) ||
+                log.first_name.toLowerCase().includes(searchValue) ||
+                log.last_name.toLowerCase().includes(searchValue) ||
+                log.used_rfid_code.toLowerCase().includes(searchValue)
+            )
+            : logsData;
+
+        console.log("Filtered Logs:", filteredLogs); // ✅ Debugging log
+
+        filteredLogs.sort((a, b) => new Date(b.log_date) - new Date(a.log_date));
+        displayPage(filteredLogs);
     }
 
 
-    function displayPage(data = filteredLogsData.length ? filteredLogsData : logsData) {
-    const tableBody = document.querySelector("#logsTable tbody");
-    tableBody.innerHTML = ""; // Clear previous data
 
-    let start = (currentPage - 1) * pageSize;
-    let end = start + pageSize;
-    let paginatedLogs = data.slice(start, end);
+    function displayPage(data = logsData) {
+        const tableBody = document.querySelector("#logsTable tbody");
+        tableBody.innerHTML = ""; // Clear previous data
 
-    paginatedLogs.forEach(log => {
-        let statusColor = log.status === "Granted" ? "#006600" : "#8B0000";
-        tableBody.innerHTML += `<tr>
-            <td>${log.log_number}</td>
-            <td>${log.user_id_log}</td>
-            <td>${log.first_name}</td>
-            <td>${log.last_name}</td>
-            <td>${log.log_date}</td>
-            <td>${log.used_rfid_code}</td>
-            <td><span style="background-color: ${statusColor}; color: white; padding: 3px 8px; border-radius: 5px;">${log.status}</span></td>
-            <td>
-                <a href="/users/user_details.php?id=${log.user_id_log}" class="btn btn-info btn-sm">
-                    <i class="fas fa-info-circle"></i> Details
-                </a>
-            </td>
-        </tr>`;
-    });
+        let start = (currentPage - 1) * pageSize;
+        let end = start + pageSize;
+        let paginatedLogs = data.slice(start, end); // ✅ Use passed data
 
-    updatePagination(data);
-}
+        paginatedLogs.forEach(log => {
+            let statusColor = log.status === "Granted" ? "#006600" : "#8B0000";
+            tableBody.innerHTML += `<tr>
+                <td>${log.log_number}</td>
+                <td>${log.user_id_log}</td>
+                <td>${log.first_name}</td>
+                <td>${log.last_name}</td>
+                <td>${log.log_date}</td>
+                <td>${log.used_rfid_code}</td>
+                <td><span style="background-color: ${statusColor}; color: white; padding: 3px 8px; border-radius: 5px;">${log.status}</span></td>
+                <td>
+                    <a href="/users/user_details.php?id=${log.user_id_log}" class="btn btn-info btn-sm">
+                        <i class="fas fa-info-circle"></i> Details
+                    </a>
+                </td>
+            </tr>`;
+        });
+
+        updatePagination(data); // ✅ Pass filtered data for correct pagination
+    }
 
     function updatePagination(data = logsData) {
         document.getElementById("pageInfo").innerText = `Page ${currentPage} of ${Math.ceil(data.length / pageSize)}`;
@@ -320,6 +323,24 @@ window.onload = () => {
         }
     }, 100); // Delay ensures logsData is available
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
