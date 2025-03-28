@@ -1,18 +1,19 @@
-from machine import Pin,PWM
+from machine import Pin, PWM
 import time
-import utime
 
-X = PWM(Pin(33, mode=Pin.OUT))
-X.freq(100)
-X.duty(131)
+# Define servo on GPIO 33
+servo = PWM(Pin(33), freq=50)  # 50Hz is standard for servos
 
+# Function to set servo angle
+def set_angle(angle):
+    duty = int(25 + (angle / 180) * 100)  # Convert angle to duty cycle
+    servo.duty(duty)
+    time.sleep(1)  		# Give time to move
 
-def full_turn():
-    X.duty(150)
-    time.sleep(1)
-    X.duty(135)
-
-full_turn()
+def open_door():
+    set_angle(0)
+    set_angle(180)
+    #servo.deinit()		# Stop the PWM signal
 
 """
 from machine import Pin, PWM
