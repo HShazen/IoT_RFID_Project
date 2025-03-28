@@ -28,8 +28,14 @@
                 </div>
                 <!-- Buttons (Unused for Now) -->
                 <div class="info-buttons">
-                    <button class="modify-user-btn">Modify</button>
-                    <button class="delete-user-btn">Delete User</button>
+                    <button type="button" 
+                            onclick="window.location.href='/users/modify_user.php?id=<?= $user['id_user'] ?>'" 
+                            class="modify-user-btn">
+                        Modify
+                    </button>
+                    <button type="button" onclick="confirmDelete(<?= $user['id_user'] ?? 'null' ?>)" class="delete-user-btn">
+                        Delete User
+                    </button>        
                 </div>
             </div>
         </div>
@@ -88,7 +94,8 @@
                         
                         <select id="searchFilter" class="search-select">
                             <option value=""></option>
-                            <option value="user_id">User ID</option>
+                            <option value="log_number">Log Number</option>
+                            <option value="log_date">Log Date</option>
                             <option value="status">Status</option>
                         </select>
                     </div>
@@ -222,13 +229,13 @@ function displayPage() {
 
 */
     // Function to display logs data in the table
-    function displayPage() {
+    function displayPage(data = logsData) {
         const tableBody = document.querySelector("#logsTable tbody");
         tableBody.innerHTML = ""; // Clear previous data
 
         let start = (currentPage - 1) * pageSize;
         let end = start + pageSize;
-        let paginatedLogs = logsData.slice(start, end);
+        let paginatedLogs = data.slice(start, end);
 
         paginatedLogs.forEach(log => {
             // ✅ Set label color based on status
@@ -245,7 +252,41 @@ function displayPage() {
 
         updatePagination();
     }
-    
+
+    function filterTable() {
+        let searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
+        let selectedColumn = document.getElementById("searchFilter").value;
+
+        // ✅ Column mapping based on the given dropdown
+        const columnMap = {
+            "log_number": "log_number",
+            "log_date": "log_date",
+            "status": "status"
+        };
+
+        let filteredLogs = logsData.filter(log => {
+            if (!searchValue) return true; // Show all if search is empty
+
+            if (selectedColumn && columnMap[selectedColumn]) {
+                let columnValue = log[columnMap[selectedColumn]] || "";
+                return columnValue.toString().toLowerCase().includes(searchValue);
+            } else {
+                // If no column is selected, search in all relevant fields
+                return Object.keys(columnMap).some(key => 
+                    (log[key] || "").toString().toLowerCase().includes(searchValue)
+                );
+            }
+        });
+
+        // ✅ Sort logs by date (newest first)
+        filteredLogs.sort((a, b) => new Date(b.log_date) - new Date(a.log_date));
+
+        // Reset pagination to page 1 after filtering
+        currentPage = 1;
+        displayPage(filteredLogs);
+    }
+
+/*
     // Function to Filter Table
     function filterTable() {
         let searchValue = document.getElementById("searchInput").value.toLowerCase();
@@ -259,7 +300,7 @@ function displayPage() {
         currentPage = 1; // Reset to first page after filtering
         displayPage();
     }
-
+*/
     function updatePagination() {
         document.getElementById("pageInfo").innerText = `Page ${currentPage} of ${Math.ceil(logsData.length / pageSize)}`;
         document.getElementById("prevPage").disabled = currentPage === 1;
@@ -457,4 +498,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+function confirmDelete(id) {
+    if (id === null) {
+        alert("❌ Error: No user selected for deletion.");
+        return;
+    }
+
+    if (confirm("⚠️ Are you sure you want to delete this user? This action cannot be undone.")) {
+        window.location.href = '/config/delete_user.php?id=' + id;
+    }
+}
 </script>

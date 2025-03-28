@@ -1,5 +1,48 @@
 <div id="layoutSidenav_content">
     <main>
+        <div id="infoBox" class="card">
+            <div class="card-header">
+                <i class="fas fa-user-plus me-1"></i> Add New User
+            </div>
+            <div class="card-body">
+                <form action="/config/upuser.php" method="POST">
+                    <div class="form-floating mb-2">
+                        <input class="form-control" type="text" name="first_name" placeholder="First Name" required>
+                        <label>First Name</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input class="form-control" type="text" name="last_name" placeholder="Last Name" required>
+                        <label>Last Name</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input class="form-control" type="date" name="birth_date">
+                        <label>Birth Date</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input class="form-control" type="text" name="rfid_code" placeholder="RFID Code" required>
+                        <label>UID (RFID Code)</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input class="form-control" type="number" name="access_level" value="0" min="0">
+                        <label>Access Level</label>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="info-buttons">
+                        <button type="button" onclick="window.location.href='/index.php'" class="modify-user-btn">Exit</button>
+                        <button type="submit" class="delete-user-btn">Add User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+    <!--main>
         <div id="registerBox" class="card">
             <div class="card-header">
                 <i class="fas fa-user-plus me-1"></i> Add New User
@@ -43,6 +86,6 @@
                 </form>
             </div>
         </div>
-    </main>
+    </main-->
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/elements/foot.php'; ?>
 </div>
