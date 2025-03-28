@@ -71,11 +71,6 @@
                 <li class="breadcrumb-item active">User Tracker</li>
             </ol>
 
-            <!-- Right Side: Table -->
-            <div class="mb-3">
-                <input type="text" id="searchInput" class="form-control" placeholder="Search by User ID or Status" onkeyup="filterTable()">
-            </div>
-
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
@@ -84,7 +79,51 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <!-- Page Size Selection -->
+                    <!-- Search & Filter Container -->
+                    <div class="search-container">
+                        <div class="search-wrapper">
+                            <input type="text" id="searchInput" class="search-bar" placeholder="Search by" onkeyup="filterTable()">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                        
+                        <select id="searchFilter" class="search-select">
+                            <option value=""></option>
+                            <option value="user_id">User ID</option>
+                            <option value="status">Status</option>
+                        </select>
+                    </div>
+
+                    <!-- Page Size & Sorting Controls -->
+                    <div class="page-controls">
+                        <!-- Page Size Selection -->
+                        <div class="page-size">
+                            <label for="pageSizeSelect">Show:</label>
+                            <select id="pageSizeSelect" class="form-select" onchange="changePageSize()">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                            <span>entries</span>
+                        </div>
+
+                        <!-- Sorting Select Dropdown -->
+                        <div class="sort-options">
+                            <label for="sortSelect">Sort by:</label>
+                            <select id="sortSelect" class="form-select" onchange="changeSorting()">
+                                <option value="log_number">Log Number</option>
+                                <option value="user_id_log">User ID</option>
+                                <option value="log_date" selected>Log Date</option>
+                                <option value="status">Status</option>
+                            </select>
+                        </div>
+                    </div>
+
+                <!-- Right Side: Table -->
+                    <!--div class="mb-3">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by User ID or Status" onkeyup="filterTable()">
+                    </div>
+                    
                     <div class="d-flex justify-content-between align-items-center mb-3">
                     <label for="pageSizeSelect" class="me-2">Show:</label>
                     <select id="pageSizeSelect" class="form-select w-auto" onchange="changePageSize()">
@@ -95,7 +134,6 @@
                     </select>
                     <span>entries</span>
                     
-                    <!-- Sorting Select Dropdown -->
                     <label for="sortSelect" class="ms-3">Sort by:</label>
                     <select id="sortSelect" class="form-select w-auto" onchange="changeSorting()">
                         <option value="log_number">Log Number</option>
@@ -103,7 +141,7 @@
                         <option value="log_date" selected>Log Date</option>
                         <option value="status">Status</option>
                     </select>
-                </div>
+                </div-->
 
 
                     <table class="table table-striped table-hover" id="logsTable">
@@ -137,36 +175,9 @@
     // Pass the logs data to JavaScript
     const logsData = <?= json_encode($logs); ?>;
     let currentPage = 1;
-    let pageSize = 5;
+    let pageSize = 10;
     let sortDirection = {}; // Initialize sorting direction
 
-    // Function to display logs data in the table
-    function displayPage() {
-        const tableBody = document.querySelector("#logsTable tbody");
-        tableBody.innerHTML = ""; // Clear previous data
-
-        let start = (currentPage - 1) * pageSize;
-        let end = start + pageSize;
-        let paginatedLogs = logsData.slice(start, end);
-
-        paginatedLogs.forEach(log => {
-            // ✅ Set label color based on status
-            let statusColor = log.status === "Granted" ? "#006600" : "#8B0000";
-
-            tableBody.innerHTML += `<tr>
-                <td>${log.log_number}</td>
-                <td>${log.user_id_log}</td>
-                <td>${log.log_date}</td>
-                <td>${log.used_rfid_code}</td>
-                <td><span style="background-color: ${statusColor}; color: white; padding: 3px 8px; border-radius: 5px;">${log.status}</span></td>
-            </tr>`;
-        });
-
-        updatePagination();
-    }
-
-        // Display the first page
-        displayPage();
 /*old 
 
    let logsData = [];
@@ -210,11 +221,54 @@ function displayPage() {
 }
 
 */
-function updatePagination() {
-    document.getElementById("pageInfo").innerText = `Page ${currentPage} of ${Math.ceil(logsData.length / pageSize)}`;
-    document.getElementById("prevPage").disabled = currentPage === 1;
-    document.getElementById("nextPage").disabled = currentPage * pageSize >= logsData.length;
-}
+    // Function to display logs data in the table
+    function displayPage() {
+        const tableBody = document.querySelector("#logsTable tbody");
+        tableBody.innerHTML = ""; // Clear previous data
+
+        let start = (currentPage - 1) * pageSize;
+        let end = start + pageSize;
+        let paginatedLogs = logsData.slice(start, end);
+
+        paginatedLogs.forEach(log => {
+            // ✅ Set label color based on status
+            let statusColor = log.status === "Granted" ? "#006600" : "#8B0000";
+
+            tableBody.innerHTML += `<tr>
+                <td>${log.log_number}</td>
+                <td>${log.user_id_log}</td>
+                <td>${log.log_date}</td>
+                <td>${log.used_rfid_code}</td>
+                <td><span style="background-color: ${statusColor}; color: white; padding: 3px 8px; border-radius: 5px;">${log.status}</span></td>
+            </tr>`;
+        });
+
+        updatePagination();
+    }
+    
+    // Function to Filter Table
+    function filterTable() {
+        let searchValue = document.getElementById("searchInput").value.toLowerCase();
+        let filteredLogs = logsData.filter(log =>
+            log.log_number.toString().includes(searchValue) ||
+            log.user_id_log.toString().includes(searchValue) ||
+            log.log_date.toLowerCase().includes(searchValue) ||
+            log.status.toLowerCase().includes(searchValue)
+        );
+        logsData = filteredLogs;
+        currentPage = 1; // Reset to first page after filtering
+        displayPage();
+    }
+
+    function updatePagination() {
+        document.getElementById("pageInfo").innerText = `Page ${currentPage} of ${Math.ceil(logsData.length / pageSize)}`;
+        document.getElementById("prevPage").disabled = currentPage === 1;
+        document.getElementById("nextPage").disabled = currentPage * pageSize >= logsData.length;
+    }
+
+
+    // Display the first page
+    displayPage();
 
 function changePage(step) {
     currentPage += step;
@@ -227,19 +281,6 @@ function changePageSize() {
     displayPage();
 }
 
-// Function to Filter Table
-function filterTable() {
-    let searchValue = document.getElementById("searchInput").value.toLowerCase();
-    let filteredLogs = logsData.filter(log =>
-        log.log_number.toString().includes(searchValue) ||
-        log.user_id_log.toString().includes(searchValue) ||
-        log.log_date.toLowerCase().includes(searchValue) ||
-        log.status.toLowerCase().includes(searchValue)
-    );
-    logsData = filteredLogs;
-    currentPage = 1; // Reset to first page after filtering
-    displayPage();
-}
 
 // Function to Sort Table
 function sortTable(column) {

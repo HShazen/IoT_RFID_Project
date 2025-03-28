@@ -1,0 +1,86 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Keeps filter to the right */
+    gap: 12px;
+    margin-bottom: 1rem;
+}
+
+.search-wrapper {
+    position: relative;
+    flex: 1; /* Makes search bar expand */
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px 14px 10px 40px; /* Extra padding for icon space */
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.search-bar:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #777;
+    font-size: 1rem;
+}
+
+.search-select {
+    min-width: 180px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.page-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap; /* Prevents wrapping */
+    gap: 16px;
+    margin-bottom: 1rem;
+    padding: 10px 15px;
+}
+
+/* Ensures both sections stay aligned in a single row */
+.page-size, .sort-options {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Small gap to prevent text overlapping */
+}
+
+/* Labels for dropdowns */
+.page-size label,
+.sort-options label {
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+
+/* Style for dropdowns */
+.form-select {
+    padding: 6px 10px;
+    min-width: 130px; /* Keeps a balanced width */
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}

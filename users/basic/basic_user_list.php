@@ -6,11 +6,6 @@
                 <li class="breadcrumb-item active">Users List</li>
             </ol>
 
-            <!-- Search Field -->
-            <div class="mb-3">
-                <input type="text" id="searchInput" class="form-control" placeholder="Search by First or Last Name" onkeyup="filterTable()">
-            </div>
-
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
@@ -22,7 +17,55 @@
                     </button>
                 </div>
                 <div class="card-body">
-                    <!-- Page Size Selection -->
+                    <!-- Search & Filter Container -->
+                    <div class="search-container">
+                        <div class="search-wrapper">
+                            <input type="text" id="searchInput" class="search-bar" placeholder="Search by " onkeyup="filterTable()">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+
+                        <select id="searchFilter" class="search-select">
+                            <option value=""></option>
+                            <option value="id_user">User ID</option>
+                            <option value="first_name">First Name</option>
+                            <option value="last_name">Last Name</option>
+                            <option value="rfid_code">RFID</option>
+                            <option value="access_level">Access Level</option>
+                            <option value="created_date">Added Date</option>
+                        </select>
+                    </div>
+
+                    <!-- Page Size & Sorting Controls -->
+                    <div class="page-controls">
+                        <!-- Page Size Selection -->
+                        <div class="page-size">
+                            <label for="pageSizeSelect">Show:</label>
+                            <select id="pageSizeSelect" class="form-select" onchange="changePageSize()">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                            <span>entries</span>
+                        </div>
+
+                        <!-- Sorting Select Dropdown -->
+                        <div class="sort-options">
+                            <label for="sortSelect">Sort by:</label>
+                            <select id="sortSelect" class="form-select" onchange="changeSorting()">
+                                <option value="id_user">User ID</option>
+                                <option value="first_name">First Name</option>
+                                <option value="last_name">Last Name</option>
+                                <option value="access_level">Access Level</option>
+                                <option value="created_date" selected>Added Date</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--
+                    <div class="mb-3">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by First or Last Name" onkeyup="filterTable()">
+                    </div>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <label for="pageSizeSelect" class="me-2">Show:</label>
                         <select id="pageSizeSelect" class="form-select w-auto" onchange="changePageSize()">
@@ -33,7 +76,6 @@
                         </select>
                         <span>entries</span>
 
-                        <!-- Sorting Select Dropdown -->
                         <label for="sortSelect" class="ms-3">Sort by:</label>
                         <select id="sortSelect" class="form-select w-auto" onchange="changeSorting()">
                             <option value="id_user">User ID</option>
@@ -42,7 +84,7 @@
                             <option value="accesss_level">Access Level</option>
                             <option value="created_date" selected>Added Date</option>
                         </select>
-                    </div>
+                    </div-->
                     <table class="table table-striped table-hover" id="userTable">
                         <thead class="table-dark">
                             <tr>
@@ -95,6 +137,49 @@
 
     function filterTable() {
         let searchValue = document.getElementById("searchInput").value.toLowerCase();
+        let selectedColumn = document.getElementById("searchFilter").value;
+
+        // Column mapping based on table structure
+        const columnMap = {
+            "id_user": "id_user",
+            "first_name": "first_name",
+            "last_name": "last_name",
+            "access_level": "access_level",
+            "created_date": "created_date",
+            "rfid_code": "rfid_code"
+        };
+
+        let columnKey = columnMap[selectedColumn];
+
+        let filteredUsers = usersData.filter(user => {
+            if (!searchValue) return true; // Show all if search is empty
+            
+            if (columnKey) {
+                let columnValue = user[columnKey] || "";
+                return columnValue.toString().toLowerCase().includes(searchValue);
+            } else {
+                // If no column is selected, search in all relevant fields
+                return (
+                    user.id_user.toString().includes(searchValue) ||
+                    user.first_name.toLowerCase().includes(searchValue) ||
+                    user.last_name.toLowerCase().includes(searchValue) ||
+                    user.access_level.toLowerCase().includes(searchValue) ||
+                    user.add_date.toLowerCase().includes(searchValue)
+                );
+            }
+        });
+
+        // ✅ Sort after filtering to maintain correct order
+        filteredUsers.sort((a, b) => new Date(b.add_date) - new Date(a.add_date));
+
+        // Reset pagination to the first page after filtering
+        currentPage = 1;
+        displayPage(filteredUsers);
+    }
+
+        /*
+    function filterTable() {
+        let searchValue = document.getElementById("searchInput").value.toLowerCase();
 
         // Restore original data when search input is empty
         let filteredUsers = searchValue
@@ -110,7 +195,7 @@
         filteredUsers.sort((a, b) => new Date(b.add_date) - new Date(a.add_date));
 
         displayPage(filteredUsers); // Pass filtered data to display
-    }
+    }*/
 
     // Modify displayPage to accept optional filtered data
     function displayPage(data = usersData) {

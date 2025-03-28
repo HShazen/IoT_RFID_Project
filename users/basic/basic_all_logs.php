@@ -26,9 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <input type="text" id="searchInputLogs" class="form-control" placeholder="Search by User ID or Status" onkeyup="filterTable()">
-            </div>
+            
 
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -37,31 +35,64 @@
                         Access Logs
                     </div>
                 </div>
+               
                 <div class="card-body">
-                    <!-- Page Size Selection -->
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                    <label for="pageSizeSelect" class="me-2">Show:</label>
-                    <select id="pageSizeSelect" class="form-select w-auto" onchange="changePageSize()">
-                        <option value="5">5</option>
-                        <option value="10" selected>10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                    <span>entries</span>
-                    
-                    <!-- Sorting Select Dropdown -->
-                    <label for="sortSelect" class="ms-3">Sort by:</label>
-                    <select id="sortSelect" class="form-select w-auto" onchange="changeSorting()">
-                        <option value="log_number">Log Number</option>
-                        <option value="user_id_log">User ID</option>
-                        <option value="first_name">First Name</option>
-                        <option value="last_name">Last Name</option>
-                        <option value="log_date" selected>Log Date</option>
-                        <option value="status">Status</option>
-                    </select>
-                </div>
+                    <div class="search-container">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="searchInputLogs" class="search-bar"
+                                placeholder="Search by" onkeyup="filterTable()">
+                        </div>
+
+                        <select id="searchColumn" class="search-select">
+                            <option value=""></option>
+                            <option value="1">User ID</option>
+                            <option value="2">First Name</option>
+                            <option value="3">Last Name</option>
+                            <option value="4">Log Date</option>
+                            <option value="6">Status</option>
+                        </select>
+                    </div>
 
 
+                
+                    <!-- Page Size & Sorting -->
+                    <div class="page-controls">
+                        <div class="page-size">
+                            <label for="pageSizeSelect">Show:</label>
+                            <select id="pageSizeSelect" class="form-select" onchange="changePageSize()">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                            <span>entries</span>
+                        </div>
+
+                        <div class="sort-options">
+                            <label for="sortSelect">Sort by:</label>
+                            <select id="sortSelect" class="form-select" onchange="changeSorting()">
+                                <option value="log_number">Log Number</option>
+                                <option value="user_id_log">User ID</option>
+                                <option value="first_name">First Name</option>
+                                <option value="last_name">Last Name</option>
+                                <option value="log_date" selected>Log Date</option>
+                                <option value="status">Status</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <!--div class="mb-3">
+                        <input type="text" id="searchInputLogs" class="form-control" placeholder="Search by User ID or Status" onkeyup="filterTable()">
+                        <select id="searchColumn">\
+                            <option value="1">User ID</option>\
+                            <option value="2">First Name</option>\
+                            <option value="3">Last Name</option>\
+                            <option value="4">Log Date</option>\
+                            <option value="6">Status</option>\
+                        </select>
+                    </div-->
                     <table class="table table-striped table-hover" id="logsTable" >
                         <thead class="table-dark">
                             <tr>
@@ -112,54 +143,69 @@
         .catch(error => console.error("Error fetching logs:", error));
 
     function filterTable() {
-        let input = document.getElementById("searchInput");
-        if (!input) {
-            console.error("Input element is missing");
-            return;
-        }
+        var input, filter, columnIndex;
+        input = document.getElementById("searchInputLogs");
+        filter = input.value.toUpperCase();
 
-        let filter = input.value ? input.value.toLowerCase() : "";
-        let rows = document.querySelectorAll("table tbody tr");
+        // Get selected column index
+        var selectedColumn = document.getElementById("searchColumn").value;
+        columnIndex = selectedColumn ? parseInt(selectedColumn) : 1; // Default to User ID
 
-        rows.forEach(row => {
-            let text = row.textContent || row.innerText;
-            if (text.toLowerCase().includes(filter)) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
+        // Define column mapping based on table structure
+        const columnMap = {
+            0: "log_number",
+            1: "user_id_log",
+            2: "first_name",
+            3: "last_name",
+            4: "log_date",
+            5: "used_rfid_code",
+            6: "status"
+        };
+
+        // Ensure columnIndex exists in mapping
+        let columnKey = columnMap[columnIndex];
+        if (!columnKey) return;
+
+        // Filter data properly using the correct column property
+        filteredLogsData = logsData.filter(log => {
+            let columnValue = log[columnKey] || "";
+            return columnValue.toString().toUpperCase().indexOf(filter) > -1;
         });
+
+        // Reset pagination to first page after filtering
+        currentPage = 1;
+        displayPage(filteredLogsData);
     }
 
 
     function displayPage(data = filteredLogsData.length ? filteredLogsData : logsData) {
-    const tableBody = document.querySelector("#logsTable tbody");
-    tableBody.innerHTML = ""; // Clear previous data
+        const tableBody = document.querySelector("#logsTable tbody");
+        tableBody.innerHTML = ""; // Clear previous data
 
-    let start = (currentPage - 1) * pageSize;
-    let end = start + pageSize;
-    let paginatedLogs = data.slice(start, end);
+        let start = (currentPage - 1) * pageSize;
+        let end = start + pageSize;
+        let paginatedLogs = data.slice(start, end);
 
-    paginatedLogs.forEach(log => {
-        let statusColor = log.status === "Granted" ? "#006600" : "#8B0000";
-        tableBody.innerHTML += `<tr>
-            <td>${log.log_number}</td>
-            <td>${log.user_id_log}</td>
-            <td>${log.first_name}</td>
-            <td>${log.last_name}</td>
-            <td>${log.log_date}</td>
-            <td>${log.used_rfid_code}</td>
-            <td><span style="background-color: ${statusColor}; color: white; padding: 3px 8px; border-radius: 5px;">${log.status}</span></td>
-            <td>
-                <a href="/users/user_details.php?id=${log.user_id_log}" class="btn btn-info btn-sm">
-                    <i class="fas fa-info-circle"></i> Details
-                </a>
-            </td>
-        </tr>`;
-    });
+        paginatedLogs.forEach(log => {
+            let statusColor = log.status === "Granted" ? "#006600" : "#8B0000";
+            tableBody.innerHTML += `<tr>
+                <td>${log.log_number}</td>
+                <td>${log.user_id_log}</td>
+                <td>${log.first_name}</td>
+                <td>${log.last_name}</td>
+                <td>${log.log_date}</td>
+                <td>${log.used_rfid_code}</td>
+                <td><span style="background-color: ${statusColor}; color: white; padding: 3px 8px; border-radius: 5px;">${log.status}</span></td>
+                <td>
+                    <a href="/users/user_details.php?id=${log.user_id_log}" class="btn btn-info btn-sm">
+                        <i class="fas fa-info-circle"></i> Details
+                    </a>
+                </td>
+            </tr>`;
+        });
 
-    updatePagination(data);
-}
+        updatePagination(data);
+    }
 
     function updatePagination(data = logsData) {
         document.getElementById("pageInfo").innerText = `Page ${currentPage} of ${Math.ceil(data.length / pageSize)}`;

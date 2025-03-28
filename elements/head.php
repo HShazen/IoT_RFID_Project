@@ -8,5 +8,6 @@
 <link href="/css/style3.css" rel="stylesheet" />
 <link href="/css/forms.css" rel="stylesheet" />
 <link href="/css/panel.css" rel="stylesheet" />
+<link href="/css/search.css" rel="stylesheet" />
 
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
