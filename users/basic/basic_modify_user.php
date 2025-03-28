@@ -78,7 +78,7 @@ $con->close();
                     
                     <!-- Buttons (Unused for Now) -->
                     <div class="info-buttons">
-                        <button type="button" onclick="window.location.href='/index.php'" class="modify-user-btn"> Modify </button>
+                        <button type="button" onclick="window.location.href='/index.php'" class="modify-user-btn"> Cancel </button>
                         <button type="submit" class="delete-user-btn">Save Changes</button>
                     </div>
                 </form>

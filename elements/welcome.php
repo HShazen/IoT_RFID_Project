@@ -20,14 +20,14 @@
                                     <i class="fas fa-users me-1"></i> User Access Statistics
                                 </a>
                                 <br>
-                                <form action="/config/esp32_verify.php" method="get">
+                                <!--form action="/config/esp32_verify.php" method="get">
                                     <div class="input-group">
                                         <input type="text" name="uid" class="form-control" placeholder="Enter UID" required>
                                         <button type="submit" class="btn btn-secondary">
                                             <i class="fas fa-door-open me-1"></i> Temp test the script used by ESP32
                                         </button>
                                     </div>
-                                </form>
+                                </form-->
 
                             </div>
 
