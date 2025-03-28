@@ -20,8 +20,8 @@ spi = SPI(2, baudrate=5000000, polarity=0, phase=0)
 spi.init()
 rdr = MFRC522(spi=spi, gpioRst=4, gpioCs=5)
 
-def read_tag():
-    while True:
+def read_tag(read = True):
+    while read:
         (stat, tag_type) = rdr.request(rdr.REQIDL)
         
         if stat == rdr.OK:
