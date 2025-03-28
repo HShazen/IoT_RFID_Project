@@ -33,7 +33,8 @@
                             class="modify-user-btn">
                         Modify
                     </button>
-                    <button type="button" onclick="confirmDelete(<?= $user['id_user'] ?? 'null' ?>)" class="delete-user-btn">
+                    <button type="button" onclick="confirmDelete(<?= $user['id_user'] ?? 'null' ?>)" class="delete-user-btn" onmouseover="this.style.backgroundColor='red'; this.style.color='white';" 
+                    onmouseout="this.style.backgroundColor='black'; this.style.color='white';">
                         Delete User
                     </button>        
                 </div>

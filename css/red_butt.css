@@ -1,0 +1,22 @@
+.red-btn {
+    background-color: #dc3545; /* Default red */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.red-btn:hover {
+    background-color: #b02a37; /* Darker red on hover */
+    transform: scale(1.05); /* Slight enlargement */
+}
+
+.red-btn:active {
+    background-color: #900d18; /* Even darker red when clicked */
+    transform: scale(0.98);
+}

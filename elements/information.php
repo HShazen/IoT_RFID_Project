@@ -18,8 +18,13 @@
 
                 <!-- Buttons (Unused for Now) -->
                 <div class="info-buttons">
-                    <button class="modify-btn">Modify</button>
-                    <button class="logout-btn">Logout</button>
+                <button type="button" 
+                            onclick="window.location.href='/elements/modify_admin.php?id=<?= $_SESSION['id_admin'] ?>'" 
+                            class="modify-user-btn">
+                        Modify
+                    </button>
+                    <button type="button" class="logout-btn" onclick="window.location.href='/config/logout.php'" onmouseover="this.style.backgroundColor='red'; this.style.color='white';" 
+                    onmouseout="this.style.backgroundColor='black'; this.style.color='white';">Logout</button>
                 </div>
             </div>
         </div>

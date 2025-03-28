@@ -1,60 +1,76 @@
 <?php
 session_start();
-include_once $_SERVER['DOCUMENT_ROOT'] . '/config/config.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/config/config.php'; // Include database connection
 
-function showAlertAndRedirect($message, $redirect) {
-    echo "<script>
-            alert('$message');
-            window.location.href = '$redirect';
-          </script>";
-    exit();
-}
-// The add of admins is restricted so it is done only by using this code!
-
-// Define admin details
-$first_name = "Admin";
-$last_name = "User";
-$birth_date = "1990-01-01";
-$email = "admin@gmail.com"; 
-$password = "admin123";
-
-// Check if admin already exists by email
-$check_sql = "SELECT id_admin FROM admin WHERE email = ?";
-$stmt = $con->prepare($check_sql);
-
-// ✅ Check if prepare() failed
-if (!$stmt) {
-    die("❌ SQL Prepare Error: " . $con->error); // Shows exact SQL error
+// Function to sanitize input
+function sanitize_input($data) {
+    return htmlspecialchars(strip_tags(trim($data)));
 }
 
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$stmt->store_result();
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
+    // Retrieve and sanitize form inputs
+    $id_admin = isset($_POST['id_admin']) ? filter_var($_POST['id_admin'], FILTER_VALIDATE_INT) : null;
+    $first_name = sanitize_input($_POST['first_name'] ?? '');
+    $last_name = sanitize_input($_POST['last_name'] ?? '');
+    $birth_date = sanitize_input($_POST['birth_date'] ?? '');
+    $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
 
-if ($stmt->num_rows > 0) {
-    showAlertAndRedirect("❌ Error: Admin already exists.", "/index.php");
-}
-$stmt->close();
+    // Validate required fields
+    if (empty($first_name) || empty($last_name) || empty($email)) {
+        echo "<script>
+                alert('❌ Error: First Name, Last Name, and Email are required.');
+                window.history.back();
+              </script>";
+        exit();
+    }
 
-// Hash password
-$hashed_password = password_hash($password, PASSWORD_BCRYPT);
+    // Check if email already exists for a different admin
+    $check_sql = "SELECT id_admin FROM admin WHERE email = ? AND id_admin != ?";
+    if ($stmt = $con->prepare($check_sql)) {
+        $stmt->bind_param("si", $email, $id_admin);
+        $stmt->execute();
+        $stmt->store_result();
 
-// Insert into database
-$sql = "INSERT INTO admin (first_name, last_name, birth_date, email, password) VALUES (?, ?, ?, ?, ?)";
-$stmt = $con->prepare($sql);
+        if ($stmt->num_rows > 0) {
+            echo "<script>
+                    alert('❌ Error: Email already exists for another admin.');
+                    window.history.back();
+                  </script>";
+            exit();
+        }
+        $stmt->close();
+    }
 
-// ✅ Check if prepare() failed again
-if (!$stmt) {
-    die("❌ SQL Prepare Error (Insert): " . $con->error); // Shows exact SQL error
-}
+    // Update admin data
+    $sql = "UPDATE admin SET first_name = ?, last_name = ?, birth_date = ?, email = ? WHERE id_admin = ?";
+    if ($stmt = $con->prepare($sql)) {
+        $stmt->bind_param("ssssi", $first_name, $last_name, $birth_date, $email, $id_admin);
+    }
 
-$stmt->bind_param("sssss", $first_name, $last_name, $birth_date, $email, $hashed_password);
+    if (isset($stmt) && $stmt->execute()) {
+        // Update session values
+        $_SESSION['first_name'] = $first_name;
+        $_SESSION['last_name'] = $last_name;
+        $_SESSION['birth_date'] = $birth_date;
+        $_SESSION['email'] = $email;
 
-if ($stmt->execute()) {
-    showAlertAndRedirect("✅ Admin added successfully.", "/index.php");
+        echo "<script>
+                alert('✅ Admin profile updated successfully.');
+                window.location.href = '/index.php';
+              </script>";
+    } else {
+        echo "<script>
+                alert('❌ Error: " . ($stmt->error ?? $con->error) . "');
+                window.history.back();
+              </script>";
+    }
+    $stmt->close();
+    $con->close();
 } else {
-    showAlertAndRedirect("❌ Error: " . $stmt->error, "/index.php");
+    echo "<script>
+            alert('❌ Invalid Request.');
+            window.history.back();
+          </script>";
 }
-
-$stmt->close();
-?>
