@@ -1,5 +1,6 @@
 from machine import Pin, PWM
-import utime
+import utime, time
+import nokia
 
 BUZZER_PIN = 27
 RED_LED_PIN = 32
@@ -36,8 +37,8 @@ def granted(pin_number=GREEN_LED_PIN):
     start_time = utime.ticks_ms()
 
     # Smooth motorized lock effect
-    for _ in range(2):
-        for note in [60, 80, 100, 120, 150]:  # Gradual sweep up
+    for _ in range(1):
+        for note in [180, 220, 320]:  # Gradual sweep up
             play_tone(note, 100, 12000)  # Higher duty for a strong sound
 
     utime.sleep_ms(500)  # Keep LED on longer
@@ -51,7 +52,7 @@ def connection_succ():
     
     # First beep with green LED
     green.value(1)
-    play_tone(500, 120, 12000)
+    play_tone(500, 150, 12000)
     green.value(0)  # Turn off before switching LED
     utime.sleep_ms(50)
 
@@ -73,6 +74,76 @@ def connection_succ():
     red.value(0)
     green.value(0)
 
+def boot_song():
+    red = Pin(RED_LED_PIN, Pin.OUT)
+    green = Pin(GREEN_LED_PIN, Pin.OUT)
+    green.value(1)
+    nokia.play_melody()
+    green.value(0)
+    
+
+def play_simple_alert():
+    """Plays an aggressive alarm sound for repeated failed attempts."""
+    buzzer = PWM(Pin(BUZZER_PIN))
+    
+    for _ in range(5):  # More repetitions for urgency
+        buzzer.freq(800)  # Higher frequency (harsh)
+        buzzer.duty_u16(32000)  # Louder and more intense
+        utime.sleep_ms(150)  # Short burst
+
+        buzzer.freq(400)  # Alternating deep tone
+        buzzer.duty_u16(32000)
+        utime.sleep_ms(150)
+
+    buzzer.duty_u16(0)  # Stop sound
+
+def play_aggressive_alert():
+    """Plays a loud, fast, and harsh alert tone for serious warnings."""
+    buzzer = PWM(Pin(BUZZER_PIN))
+
+    for _ in range(8):  # More repetitions for a serious alert
+        for freq in [300, 600, 1200, 600]:  # Strong up/down pattern
+            buzzer.freq(freq)
+            buzzer.duty_u16(45000)  # Very loud
+            utime.sleep_ms(80)  # Fast, urgent beeps
+
+        utime.sleep_ms(100)  # Short break before repeating
+
+    buzzer.duty_u16(0)  # Stop sound
+
+
+def short_block(pin_number=RED_LED_PIN):
+    """Flashes red LED and plays a deep 'buzz buzz' for denied access."""
+    red = Pin(pin_number, Pin.OUT)
+    red.value(1)  # Turn on red LED
+    start_time = utime.ticks_ms()
+
+    # Deep "buzz buzz" sound like a real lock error
+    play_simple_alert()
+
+    utime.sleep(18)  # ✅ Use seconds instead of `sleep_ms()`
+    
+    red.value(0)  # Turn off red LED
+    print("Blocked for:", utime.ticks_diff(utime.ticks_ms(), start_time), "ms")
+
+
+def long_block(pin_number=RED_LED_PIN):
+    """Flashes red LED and plays a deep 'buzz buzz' for denied access."""
+    red = Pin(pin_number, Pin.OUT)
+    red.value(1)  # Turn on red LED
+    start_time = utime.ticks_ms()
+
+    play_aggressive_alert()
+    
+    utime.sleep(120)  # ✅ Use seconds instead of `sleep_ms()`
+    
+    red.value(0)  # Turn off red LED
+    print("Blocked for:", utime.ticks_diff(utime.ticks_ms(), start_time), "ms")
+
+#boot_tone()
+#connection_succ()
+#granted()
+#denied()
 """
 Old buzzer code
 BUZZER_PIN = 25
