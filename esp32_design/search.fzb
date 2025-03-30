@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module fritzingVersion="0.9.3b.04.19.5c895d327c44a3114e5fcc9d8260daf0cbb52806" icon="Search.png" search="resistor">
+    <title>Search</title>
+    <instances>
+        <instance moduleIdRef="SparkFun-DigitalIC-TLC5940--NT" modelIndex="6842" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-digitalic-tlc5940--nt.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="lijae56546nar346gnn-ResistorModuleID" modelIndex="6843" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/SMD_resistor_0805.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="M5450_LED_Driver" modelIndex="6845" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/M5450_LED_Driver.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="3b1a8578c21940dfe27253a7b57c81f5PotentiometerModuleID" modelIndex="6846" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/pot-slider.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun_BME280_Breakout" modelIndex="6847" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/SparkFun_BME280_Breakout.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="Arduino-Pro-Mini.5v" modelIndex="6849" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Arduino-Pro-Mini_5v-v14.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="ResistorModuleID" modelIndex="6851" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/resistor.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="lijaeag5654yx6narfd346gnn-ResistorModuleID" modelIndex="6852" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/SMD_resistor_1206.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="ITG-3200-v11" modelIndex="6854" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/ITG-3200-v11.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="ProtoShield-v25" modelIndex="6855" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/ProtoShield-v25.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-DigitalIC-TLC5940-PWP" modelIndex="6856" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-digitalic-tlc5940-pwp.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-Passives-RESISTOR-0402-ResistorModuleID" modelIndex="6857" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/SMD_resistor_0402.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="3234DBDC00PotentiometerModuleID" modelIndex="6859" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/pot_trimmer_12mm.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="1000ABDD10011" modelIndex="6860" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/basic_fsr.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="lijaenargnn-ResistorModuleID" modelIndex="6861" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/SMD_resistor_0603.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-Sensors-PHOTOCELL-PTH" modelIndex="6863" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-sensors-photocell-pth.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="fa3e296736059e8c25d88ac262af999a" modelIndex="6865" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Basic Force Sensing Resistor (FSR).fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-Passives-RESISTOR-ARRAY-0603-ARV" modelIndex="6866" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-passives-resistor-array-0603-arv.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-Passives-RESISTOR-2512-ResistorModuleID" modelIndex="6868" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-passives-resistor-2512smd.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="screwshield-v15" modelIndex="6870" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/screwshield-v15.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="Gas_Sensor_Breakout-v12" modelIndex="6871" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Gas_Sensor_Breakout-v12.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="arduino_uno(rev3)-icsp" modelIndex="6872" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/arduino_uno(rev3)-icsp.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-DiscreteSemi-VARISTOR--0603" modelIndex="6874" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-discretesemi-varistor--0603.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="Arduino_ADK_MEGA_2560-Rev3(fix)" modelIndex="6876" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Arduino_ADK_MEGA_2560-Rev3(fix).fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="Arduino-Pro-Mini-v13-a4+5" modelIndex="6878" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Arduino-Pro-Mini-v13-a4+5.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun_Soil_Moisture_Sensor" modelIndex="6880" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/SparkFun_Soil_Moisture_Sensor.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="arduino_Uno_Rev3(fix)" modelIndex="6882" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/arduino_Uno_Rev3(fix).fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-PowerIC-V_REG_317-DPACK" modelIndex="6883" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-poweric-v_reg_317-dpack.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="Arduino-Pro-Mini3.3V" modelIndex="6885" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Arduino-Pro-Mini_3.3v-v14.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="smd-YC164_pcb" modelIndex="6886" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/smd-YC164.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="MPX4250AP_60bfc397c54bae166e67461339be2ca8_4" modelIndex="6888" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/MPX4250AP pressure sensor.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="ISD1932 Breakout-v11" modelIndex="6890" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/ISD1932 Breakout-v11.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="3234DFDC00PotentiometerModuleID" modelIndex="6891" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/pot_big.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="5BandResistorModuleID" modelIndex="6893" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/resistor_5band.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="Mega_Shield-v13" modelIndex="6895" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Mega_Shield-v13.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="Arduino_ADK_MEGA_2560-Rev3(iscp)" modelIndex="6896" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Arduino_ADK_MEGA_2560-Rev3(icsp).fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-Passives-RPACK*--BUSSED-SIP-PTH-5" modelIndex="6898" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-passives-rpack_--bussed-sip-pth-5.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="PWM-Shield-v12" modelIndex="6900" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/PWM-Shield-v12.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="Rotoshield-1.0a" modelIndex="6901" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Rotoshield-1.0a.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="4244TPM6MMPotentiometerModuleID" modelIndex="6902" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/pot_trimmer_6mm.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="2010BBCD20113" modelIndex="6904" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/LDR_photocell_300mil.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="arduino_uno(rev3)-icsp_only" modelIndex="6905" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/arduino_uno(rev3)-icsp(1).fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-Passives-RESISTOR-2010-ResistorModuleID" modelIndex="6907" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-passives-resistor-2010smd.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="297c7ab01279c7b7f5c4ca77ec94554c" modelIndex="6909" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Dial Potentiometer with switch.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="d63bf67236bb974ced6c30c1d9f152a9_18" modelIndex="6911" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/MPX2010 pressure sensor.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-Sensors-PHOTOCELL-PTH-KIT" modelIndex="6913" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-sensors-photocell-pth-kit.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-DiscreteSemi-VARISTOR--0402" modelIndex="6915" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-discretesemi-varistor--0402.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="LilyPad SimplePower-v13" modelIndex="6917" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/LilyPad SimplePower-v13.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-DigitalIC-TLC5940--RHB" modelIndex="6919" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-digitalic-tlc5940--rhb.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="MPR121-Breakout-v13" modelIndex="6920" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/MPR121-Breakout-v13.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="BMP085 Breakout-v13" modelIndex="6921" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/BMP085 Breakout-v13.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="alps-starter-pot9mm" modelIndex="6922" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/alps-starter-pot9mm.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-PowerIC-V_REG_317-SMD" modelIndex="6923" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-poweric-v_reg_317-smd.fzp" flippedSMD="true">
+            <views/>
+        </instance>
+        <instance moduleIdRef="ab15a34dfcf83e23a26e83fe8a5a4dac_2" modelIndex="6925" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/Textile Potentiometer.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-PowerIC-V_REG_317-SINK" modelIndex="6926" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-poweric-v_reg_317-sink.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="TMP102_Breakout-v11" modelIndex="6928" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/TMP102_Breakout-v11.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="SparkFun-DiscreteSemi-GP1A57HR-" modelIndex="6929" path="C:/Users/hshazen/Downloads/esp_project/fritzing.0.9.3b.64.pc/fritzing-parts/core/sparkfun-discretesemi-gp1a57hr-.fzp">
+            <views/>
+        </instance>
+    </instances>
+</module>
