@@ -2,12 +2,6 @@
 ## Introduction:
 This project is a university project for IoT Labs, through this project we will realise a access control system using ESP32 and RFID, in other term (RFID-Based Smart Door Lock System using ESP32).
 ![image](https://github.com/user-attachments/assets/d3a8c81d-dfa0-4efb-89c3-2b4c6d61d214)
-<img width="720" height="1280" alt="image" src="https://github.com/user-attachments/assets/e4c1ef89-451c-4dd4-a68b-3a12d044deb0" />
-<img width="1080" height="807" alt="image" src="https://github.com/user-attachments/assets/9f964a64-baae-4cfe-ae4c-9353f032c0b5" />
-<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/58c0fb77-a432-4d32-958b-5045b0734c92" />
-<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/a66920da-9eb7-45f3-8d0b-69941fae7135" />
-![Uploading image.png…]()
-
 
 ## 1. Web Application:
 The web application allows administrators to **monitor door usage** and **manage user access** efficiently. It provides detailed statistics and a user-friendly interface.
@@ -113,3 +107,11 @@ The ESP32 is programmed using **MicroPython** to control door access using **RFI
 ## Conclusion:
 We were able to realise a Access Control System for multiple users, where each user has his own access card. we were able to control user data through a web application thats allow us to track when the door was open and by who at what time.
 The system has a security control that prevents more than three incorrect attempts per minute. If unusual behavior is detected (more ten consecutive failed attempts are detected), it will trigger an alarm and send an alert to the web application.
+
+## Project Pictures:
+
+<img width="720" height="1280" alt="image" src="https://github.com/user-attachments/assets/e4c1ef89-451c-4dd4-a68b-3a12d044deb0" />
+<img width="1080" height="807" alt="image" src="https://github.com/user-attachments/assets/9f964a64-baae-4cfe-ae4c-9353f032c0b5" />
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/58c0fb77-a432-4d32-958b-5045b0734c92" />
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/a66920da-9eb7-45f3-8d0b-69941fae7135" />
+![Uploading image.png…]()
