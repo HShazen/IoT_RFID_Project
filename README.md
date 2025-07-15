@@ -1,4 +1,4 @@
-<img width="720" height="1280" alt="image" src="https://github.com/user-attachments/assets/ad5d35db-f01c-4359-8a67-6a148c9e9ecc" /># IoT RFID-DACS (Door-Access-Control-System):
+# IoT RFID-DACS (Door-Access-Control-System):
 ## Introduction:
 This project is a university project for IoT Labs, through this project we will realise a access control system using ESP32 and RFID, in other term (RFID-Based Smart Door Lock System using ESP32).
 ![image](https://github.com/user-attachments/assets/d3a8c81d-dfa0-4efb-89c3-2b4c6d61d214)
@@ -109,7 +109,7 @@ We were able to realise a Access Control System for multiple users, where each u
 The system has a security control that prevents more than three incorrect attempts per minute. If unusual behavior is detected (more ten consecutive failed attempts are detected), it will trigger an alarm and send an alert to the web application.
 
 ## Project Pictures:
-
+<img width="720" height="1280" alt="image" src="https://github.com/user-attachments/assets/ad5d35db-f01c-4359-8a67-6a148c9e9ecc" />
 <img width="720" height="1280" alt="image" src="https://github.com/user-attachments/assets/e4c1ef89-451c-4dd4-a68b-3a12d044deb0" />
 <img width="1080" height="807" alt="image" src="https://github.com/user-attachments/assets/9f964a64-baae-4cfe-ae4c-9353f032c0b5" />
 <img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/58c0fb77-a432-4d32-958b-5045b0734c92" />
