@@ -114,4 +114,5 @@ The system has a security control that prevents more than three incorrect attemp
 <img width="1080" height="807" alt="image" src="https://github.com/user-attachments/assets/9f964a64-baae-4cfe-ae4c-9353f032c0b5" />
 <img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/58c0fb77-a432-4d32-958b-5045b0734c92" />
 <img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/a66920da-9eb7-45f3-8d0b-69941fae7135" />
-![Uploading image.png…]()
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/2971a9fa-1036-4008-93be-378d6d0ff5c6" />
+
